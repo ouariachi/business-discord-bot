@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+    container_name: business-discord-bot
+
+  postgres:
+    image: postgres:latest
+    container_name: business-discord-bot-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: business_discord_bot
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data 
+
+volumes:
+  postgres-data:
