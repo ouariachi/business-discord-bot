@@ -7,14 +7,14 @@ import { getCommands } from "#src/utils/getCommands";
  */
 export async function registerCommands(guild, client) {
   const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
-  const commands = await getCommands(true);
+  const commands = await getCommands(true, false);
   if (!commands.length) return;
 
   try {
-    console.log("Registering application commands...");
+    console.log(`Registering application commands in ${guild.name} (${guild.id})...`);
 
     if (!guild.commands)
-      throw new Error("Cannot register application commands: guild.commands is undefined.");
+      throw new Error(`Cannot register application commands in ${guild.name} (${guild.id}): guild.commands is undefined.`);
 
     const response = await guild.commands.fetch();
 
@@ -36,18 +36,18 @@ export async function registerCommands(guild, client) {
       }
       console.log(`Successfully registered ${newCommands.length} application commands in ${guild.name} (${guild.id})!`);
     } else {
-      console.log("No new application commands to register.");
+      console.log(`No new application commands to register in ${guild.name} (${guild.id}).`);
     }
 
     if (commandsToUpdate.length) {
       for (const command of commandsToUpdate) {
         const existingCommand = response.find((cmd) => cmd.name === command.name);
-        console.log(`Updating application command: ${command.name}`);
+        console.log(`Updating application command ${command.name} in ${guild.name} (${guild.id})`);
         await guild.commands.edit(existingCommand.id, command);
       }
       console.log(`Successfully updated ${commandsToUpdate.length} application commands in ${guild.name} (${guild.id})!`);
     } else {
-      console.log("No application commands to update.");
+      console.log(`No application commands to update in ${guild.name} (${guild.id}).`);
     }
   } catch (error) {
     console.error(error);
