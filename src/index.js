@@ -15,12 +15,13 @@ client.once(Events.ClientReady, async (readyClient) => {
   await setupCommands(client);
 });
 
-client.once(Events.GuildCreate, (guild) => {
-  console.log(`Joined a new guild: ${guild.name} (${guild.id})`);
+client.on(Events.GuildCreate, async (guild) => {
+  console.log(`>> Joined a new guild: ${guild.name} (${guild.id})`);
+  await registerCommands(guild);
 });
 
-client.once(Events.GuildAvailable, async (guild) => {
-  console.log(`Available in a new guild: ${guild.name} (${guild.id})`);
+client.on(Events.GuildAvailable, async (guild) => {
+  console.log(`>> Available in a new guild: ${guild.name} (${guild.id})`);
   await registerCommands(guild, client);
 });
 
