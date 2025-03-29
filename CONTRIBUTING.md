@@ -12,7 +12,7 @@ Antes de contribuir, por favor lee nuestro [Código de Conducta](CODE_OF_CONDUCT
 - Asegúrate de tener [Docker](https://docs.docker.com/get-docker/) instalado.  
 - También necesitarás un token de Discord para usar el bot. Puedes obtener uno [aquí](https://discord.com/developers/applications).  
 
-### Instalación  
+### 🖥️ Instalación  
 
 1. Haz un fork del proyecto en tu cuenta de GitHub para tener tu propia copia. Para hacer esto, haz clic en el botón “Fork” en la parte superior derecha de la página del repositorio en GitHub. Esto creará una copia del repositorio en tu cuenta de GitHub.  
 
@@ -57,6 +57,78 @@ Antes de contribuir, por favor lee nuestro [Código de Conducta](CODE_OF_CONDUCT
    ```  
 
 De esta forma ya tendrás la base de datos y tu bot en ejecución. Como usamos nodemon para ejecutar el bot en modo desarrollo, cuando cambies algún archivo, el bot se reiniciará automáticamente. ¡Pero, ten en cuenta! Los cambios que realices en el archivo .env no son detectados automáticamente, por lo que debes reiniciar el contenedor para que se apliquen los cambios.
+
+## 🚀 GitHub Flow: Flujo de Trabajo  
+
+Para mantener el código limpio y organizado, seguimos **GitHub Flow**, un flujo de trabajo simple basado en ramas.  
+
+### 📌 Pasos para Contribuir  
+
+1. **Sincroniza tu fork**  
+   Antes de empezar a trabajar, asegúrate de que tu fork está actualizado con la última versión del repositorio original:  
+
+   ```bash
+   git checkout main
+   git pull upstream main
+   ```
+
+2. **Crea una nueva rama**  
+   Cada nueva funcionalidad o corrección debe realizarse en una nueva rama descriptiva:  
+
+   ```bash
+   git checkout -b <tipo-de-cambio>/<breve-descripcion-de-los-cambios> # Ejemplo: feat/add-logging o fix/bug-in-login
+   ```
+
+3. **Realiza cambios y haz commits siguiendo la convención**  
+   Asegúrate de que tu código sigue las buenas prácticas y haz commits siguiendo el formato de [Conventional Commits](#guia-de-commits).  
+
+4. **Sincroniza tu rama con `main`**  
+   Antes de enviar tu cambio, asegúrate de que tu rama está actualizada:  
+
+   ```bash
+   git pull upstream main
+   ```
+
+5. **Envía tus cambios a GitHub**  
+   ```bash
+   git push origin feat/add-logging
+   ```
+
+6. **Crea un Pull Request (PR)**  
+   - Dirígete a tu fork en GitHub y abre un **Pull Request** hacia la rama `main` del repositorio original.  
+   - Asegúrate de seguir la plantilla de PR y explicar los cambios que hiciste.  
+   - ¡Espera revisión y feedback!  
+
+---
+
+## 🛠 Cómo Reportar Issues  
+
+Si encuentras un bug o tienes una idea para mejorar el bot, puedes abrir un **Issue** en GitHub siguiendo estos pasos:  
+
+1. Ve a la pestaña **Issues** del repositorio.  
+2. Haz clic en **New Issue** y selecciona la plantilla adecuada (bug, feature request, etc.).  
+3. Proporciona una descripción clara del problema o la mejora que propones.  
+4. Añade etiquetas si es necesario (por ejemplo, `bug`, `enhancement`).  
+5. Espera respuesta y colabora en la discusión.  
+
+---
+
+## ✅ Cómo Probar tus Cambios  
+
+Antes de enviar un Pull Request, asegúrate de que todo funciona correctamente:  
+
+1. **Ejecuta pruebas (si las hay)**  
+   ```bash
+   npm test
+   ```
+2. **Verifica logs del bot**  
+   ```bash
+   docker-compose logs -f bot
+   ```
+3. **Prueba el bot en un servidor de prueba**  
+   Usa un servidor de prueba de Discord con el bot conectado para asegurarte de que funciona correctamente.  
+
+<div id="guia-de-commits"></div>
 
 # 📝 Guía de Commits  
 
