@@ -1,4 +1,4 @@
-import { createUser, getUser } from "#src/db/models/user";
+import { createUser, getUser } from "#src/db/models/User";
 import { EmbedBuilder } from "@discordjs/builders";
 import { Colors, MessageFlags } from "discord.js";
 
