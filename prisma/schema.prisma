@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  discordId String   @unique
+  username  String
+  avatarUrl String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  skills        Skill[]
+  opportunities Opportunity[]
+  requests      OpportunityRequest[]
+}
+
+model Skill {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  icon        String?
+  userId      Int
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
+}
+
+model Opportunity {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  creatorId       Int
+  creator         User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  maxParticipants Int?
+  requirements    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  status   OpportunityStatus    @default(ACTIVE)
+  requests OpportunityRequest[]
+}
+
+model OpportunityRequest {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  opportunityId Int
+  createdAt     DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunity Opportunity   @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  status      RequestStatus @default(PENDING)
+
+  @@unique([userId, opportunityId])
+}
+
+enum OpportunityStatus {
+  ACTIVE
+  CLOSED
+  CANCELED
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
